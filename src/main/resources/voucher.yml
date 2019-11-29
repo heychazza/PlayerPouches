@@ -1,0 +1,27 @@
+# Vouchers v4.0 Configuration
+# Configure your 'example' voucher here.
+
+item:
+  name: "&bExample Voucher"
+  lore:
+    - "&7Go into the plugin folder"
+    - "&7to edit this voucher."
+    - "&7"
+    - "&7plugins/Vouchers/voucher/example.yml"
+  glow: true
+  material: PAPER
+  data: 0
+
+rewards:
+  test:
+    chance: 100
+    actions:
+      - "[broadcast] Example Action!"
+
+settings:
+  permission: true
+  blacklist:
+    region:
+      - "bad_region"
+    world:
+      - "bad_world"

@@ -1,0 +1,5 @@
+name: ${plugin}
+version: ${project.version}
+main: ${package}
+author: "Felux"
+website: https://felux.io/
