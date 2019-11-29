@@ -1,0 +1,24 @@
+# Pouches v1.0 Configuration
+# Configure your 'example' pouch here.
+
+item:
+  name: "&bExample Pouch"
+  lore:
+    - "&7Go into the plugin folder"
+    - "&7to edit this pouch."
+    - "&7"
+    - "&7plugins/Pouches/pouch/example.yml"
+  glow: true
+  material: PAPER
+  data: 0
+
+rewards:
+  - '[broadcast] Hi!'
+
+settings:
+  permission: true
+  blacklist:
+    region:
+      - "bad_region"
+    world:
+      - "bad_world"

@@ -2,8 +2,10 @@ package io.felux.pouches.listener;
 
 import io.felux.pouches.Pouches;
 import io.felux.pouches.api.Pouch;
-import io.felux.pouches.api.PouchReward;
+import io.felux.pouches.api.PouchRedeemEvent;
 import io.felux.pouches.nbt.NBT;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,24 +22,41 @@ public class InteractListener implements Listener {
     }
 
     @EventHandler
-    public void onVoucherUse(PlayerInteractEvent e) {
+    public void onPouchInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
         ItemStack itemStack = e.getItem();
 
         if (itemStack != null && itemStack.getType() != Material.AIR) {
             NBT nbt = NBT.get(itemStack);
+            if (nbt == null) return;
 
-            if (nbt.hasKey("voucherid") && Pouches.getInstance().getPouchManager().getVoucher(nbt.getString("voucherid")) != null) {
-                Pouch pouch = Pouches.getInstance().getPouchManager().getVoucher(nbt.getString("voucherid"));
-                player.sendMessage("You clicked the " + pouch.getId() + " voucher.");
+            if (nbt.hasKey("pouches-id") && Pouches.getInstance().getPouchManager().getVoucher(nbt.getString("pouches-id")) != null) {
+                Pouch pouch = Pouches.getInstance().getPouchManager().getVoucher(nbt.getString("pouches-id"));
 
-                for (PouchReward reward : pouch.getPouchRewards()) {
-                    for (String rewardReward : reward.getRewards()) {
-                        player.sendMessage(reward.getId() + ": " + rewardReward);
-                    }
-                }
+                PouchRedeemEvent pouchRedeemEvent = new PouchRedeemEvent(player, pouch, pouch.getAmount());
+                Bukkit.getServer().getPluginManager().callEvent(pouchRedeemEvent);
             }
-
         }
+    }
+
+    @EventHandler
+    public void onPouchRedeem(PouchRedeemEvent e) {
+        Player player = e.getPlayer();
+        Pouch pouch = e.getPouch();
+        Long amount = e.getAmount();
+
+        player.sendMessage(ChatColor.YELLOW + "You clicked the " + pouch.getId() + " pouch.");
+
+        System.out.println("Player: " + player.getName());
+        System.out.println("Pouch: " + pouch);
+        System.out.println("Amount: " + amount);
+        System.out.println(" ");
+
+        for (String reward : pouch.getPouchRewards()) {
+            player.sendMessage(ChatColor.YELLOW + "[REWARD] " + ChatColor.WHITE + reward);
+        }
+
+        Pouches pouches = Pouches.getInstance();
+        pouch.sendTitle(player, amount);
     }
 }

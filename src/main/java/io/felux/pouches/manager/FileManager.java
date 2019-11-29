@@ -20,7 +20,7 @@ public class FileManager {
 
     public FileManager(Pouches pouches) {
         pouchData = new ArrayList<>();
-        File voucherFolder = new File(pouches.getDataFolder(), "pouches");
+        File voucherFolder = new File(pouches.getDataFolder(), "pouch");
 
         File[] files;
         if (!voucherFolder.exists()) {

@@ -11,6 +11,8 @@
     <properties>
         <plugin>Pouches</plugin>
         <package>${groupId}.${artifactId}.${plugin}</package>
+        <spigotJars>D:/Documents/Development/SpigotJars</spigotJars>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
@@ -127,6 +129,70 @@
             <artifactId>worldguardwrapper</artifactId>
             <version>1.1.6-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-1.7</artifactId>
+            <version>1.7.10-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${spigotJars}/spigot-1.7.10-R0.1-SNAPSHOT-latest.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-1.8</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${spigotJars}/spigot-1.8.8-R0.1-SNAPSHOT-latest.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-1.9</artifactId>
+            <version>1.9.4-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${spigotJars}/spigot-1.9.4-R0.1-SNAPSHOT-latest.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-1.10</artifactId>
+            <version>1.10.2-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${spigotJars}/spigot-1.10.2-R0.1-SNAPSHOT-latest.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-1.11</artifactId>
+            <version>1.11.2-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${spigotJars}/spigot-1.11.2-R0.1-SNAPSHOT-latest.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-1.12</artifactId>
+            <version>spigot-1.12.2-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${spigotJars}/spigot-1.12.2-R0.1-SNAPSHOT-latest.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-1.13</artifactId>
+            <version>spigot-1.13.2-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${spigotJars}/spigot-1.13.2-R0.1-SNAPSHOT-latest.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-1.14</artifactId>
+            <version>1.14.4-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${spigotJars}/spigot-1.14.4-R0.1-SNAPSHOT-latest.jar</systemPath>
         </dependency>
     </dependencies>
 
