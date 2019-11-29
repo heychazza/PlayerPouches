@@ -1,7 +1,6 @@
 package io.felux.pouches.listener;
 
-import de.tr7zw.changeme.nbtapi.NBTContainer;
-import de.tr7zw.changeme.nbtapi.NBTItem;
+import de.tr7zw.itemnbtapi.NBTItem;
 import io.felux.pouches.Pouches;
 import io.felux.pouches.api.Pouch;
 import io.felux.pouches.api.PouchRedeemEvent;
@@ -28,7 +27,7 @@ public class InteractListener implements Listener {
         ItemStack itemStack = e.getItem();
 
         if (itemStack != null && itemStack.getType() != Material.AIR) {
-            NBTContainer nbt = NBTItem.convertItemtoNBT(itemStack);
+            NBTItem nbt = new NBTItem(itemStack);
 
             if (nbt.hasKey("pouches-id") && Pouches.getInstance().getPouchManager().getVoucher(nbt.getString("pouches-id")) != null) {
                 Pouch pouch = Pouches.getInstance().getPouchManager().getVoucher(nbt.getString("pouches-id"));

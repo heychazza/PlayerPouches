@@ -1,6 +1,6 @@
 package io.felux.pouches.util;
 
-import de.tr7zw.changeme.nbtapi.NBTItem;
+import de.tr7zw.itemnbtapi.NBTItem;
 import io.felux.pouches.api.Pouch;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;

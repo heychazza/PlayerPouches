@@ -78,6 +78,12 @@
                                     <exclude>org.apache.logging.log4j:log4j-api:</exclude>
                                 </excludes>
                             </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>de.tr7zw.itemnbtapi</pattern>
+                                    <shadedPattern>${project.groupId}.${project.artifactId}.nbt</shadedPattern>
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
@@ -131,9 +137,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>de.tr7zw</groupId>
+            <groupId>com.github.Chazza.Item-NBT-API</groupId>
             <artifactId>item-nbt-api</artifactId>
-            <version>2.1.0</version>
+            <version>3d06992b2a</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
@@ -142,7 +148,6 @@
             <scope>system</scope>
             <systemPath>${spigotJars}/spigot-1.7.10-R0.1-SNAPSHOT-latest.jar</systemPath>
         </dependency>
-
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-1.8</artifactId>
@@ -150,7 +155,6 @@
             <scope>system</scope>
             <systemPath>${spigotJars}/spigot-1.8.8-R0.1-SNAPSHOT-latest.jar</systemPath>
         </dependency>
-
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-1.9</artifactId>
@@ -158,7 +162,6 @@
             <scope>system</scope>
             <systemPath>${spigotJars}/spigot-1.9.4-R0.1-SNAPSHOT-latest.jar</systemPath>
         </dependency>
-
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-1.10</artifactId>
@@ -166,7 +169,6 @@
             <scope>system</scope>
             <systemPath>${spigotJars}/spigot-1.10.2-R0.1-SNAPSHOT-latest.jar</systemPath>
         </dependency>
-
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-1.11</artifactId>
@@ -174,7 +176,6 @@
             <scope>system</scope>
             <systemPath>${spigotJars}/spigot-1.11.2-R0.1-SNAPSHOT-latest.jar</systemPath>
         </dependency>
-
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-1.12</artifactId>
@@ -182,7 +183,6 @@
             <scope>system</scope>
             <systemPath>${spigotJars}/spigot-1.12.2-R0.1-SNAPSHOT-latest.jar</systemPath>
         </dependency>
-
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-1.13</artifactId>
@@ -190,7 +190,6 @@
             <scope>system</scope>
             <systemPath>${spigotJars}/spigot-1.13.2-R0.1-SNAPSHOT-latest.jar</systemPath>
         </dependency>
-
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-1.14</artifactId>
