@@ -11,14 +11,26 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class PouchMapper {
     public static Pouch voucherMap(FileConfiguration data) {
-        return new Pouch(data.getString("id", "invalid"),
-                itemstackMap(data),
-                data.getBoolean("settings.permission", false),
-                data.getLong("settings.amount.min", 1000),
-                data.getLong("settings.amount.max", 3000),
-                data.getStringList("rewards"),
-                data.getStringList("settings.blacklist.regions"),
-                data.getStringList("settings.blacklist.worlds"));
+        Pouch pouch = new Pouch(data.getString("id", "invalid"));
+        pouch.setItem(itemstackMap(data));
+        pouch.setPermission(data.getBoolean("settings.permission", false));
+        pouch.setMinAmount(data.getLong("settings.amount.min", 1000));
+        pouch.setMaxAmount(data.getLong("settings.amount.max", 3000));
+        pouch.setPouchRewards(data.getStringList("rewards"));
+        pouch.setBlacklistedRegions(data.getStringList("settings.blacklist.regions"));
+        pouch.setBlacklistedWorlds(data.getStringList("settings.blacklist.worlds"));
+
+        pouch.setUnrevealedFirstFormat(data.getString("settings.title.unrevealed.first"));
+        pouch.setUnrevealedSecondFormat(data.getString("settings.title.unrevealed.second"));
+        pouch.setUnrevealedSubtitle(data.getString("settings.title.unrevealed.subtitle"));
+
+        pouch.setRevealedFirstFormat(data.getString("settings.title.revealed.first"));
+        pouch.setRevealedSecondFormat(data.getString("settings.title.revealed.second"));
+        pouch.setRevealedTitle(data.getString("settings.title.revealed.title"));
+        pouch.setRevealedSubtitle(data.getString("settings.title.revealed.subtitle"));
+
+        pouch.setFormat(data.getBoolean("settings.format"));
+        return pouch;
     }
 
     @SuppressWarnings("deprecation")

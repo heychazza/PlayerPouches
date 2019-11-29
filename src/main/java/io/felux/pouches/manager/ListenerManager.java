@@ -4,7 +4,7 @@ import io.felux.pouches.Pouches;
 import io.felux.pouches.listener.InteractListener;
 import org.bukkit.event.Listener;
 
-public class EventManager {
+public class ListenerManager {
     private static final Listener[] LISTENERS = {
             new InteractListener()
     };

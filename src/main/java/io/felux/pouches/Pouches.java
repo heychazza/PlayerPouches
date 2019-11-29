@@ -1,6 +1,6 @@
 package io.felux.pouches;
 
-import io.felux.pouches.manager.EventManager;
+import io.felux.pouches.manager.ListenerManager;
 import io.felux.pouches.manager.FileManager;
 import io.felux.pouches.manager.PouchManager;
 import io.felux.pouches.title.*;
@@ -33,7 +33,7 @@ public class Pouches extends JavaPlugin {
             public void run() {
                 fileManager = new FileManager(instance);
                 pouchManager = new PouchManager(fileManager.getPouchConfigs().stream().map(PouchMapper::voucherMap).collect(Collectors.toList()));
-                EventManager.register();
+                ListenerManager.register();
             }
         }.runTaskAsynchronously(this);
     }

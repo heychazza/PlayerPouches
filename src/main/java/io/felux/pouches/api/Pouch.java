@@ -24,10 +24,27 @@ public class Pouch {
     private List<String> pouchRewards;
     private List<String> blacklistedRegions;
     private List<String> blacklistedWorlds;
+
+    private String unrevealedFirstFormat = "&c&l&n&k";
+    private String unrevealedSecondFormat = "&a&l&n";
+    private String unrevealedSubtitle = "&7&o(( Opening pouch... ))";
+
+    private String revealedFirstFormat = "&c&l";
+    private String revealedSecondFormat = "&a&l";
+    private String revealedTitle = "%color%%amount%";
+    private String revealedSubtitle = "&7&o(( Congratulations! ))";
+
+    private boolean format = true;
+
     private static final Map<String, Pouch> pouches = Maps.newConcurrentMap();
 
     public Pouch(String id) {
         this.id = id;
+    }
+
+    public Pouch(String id, ItemStack item) {
+        this.id = id;
+        this.item = item;
     }
 
     public Pouch(String id, ItemStack item, boolean permission, Long minAmount, Long maxAmount, List<String> pouchRewards, List<String> blacklistedRegions, List<String> blacklistedWorlds) {
@@ -39,6 +56,70 @@ public class Pouch {
         this.maxAmount = maxAmount;
         this.blacklistedRegions = blacklistedRegions;
         this.blacklistedWorlds = blacklistedWorlds;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setItem(ItemStack item) {
+        this.item = item;
+    }
+
+    public void setPermission(boolean permission) {
+        this.permission = permission;
+    }
+
+    public void setMinAmount(long minAmount) {
+        this.minAmount = minAmount;
+    }
+
+    public void setMaxAmount(long maxAmount) {
+        this.maxAmount = maxAmount;
+    }
+
+    public void setPouchRewards(List<String> pouchRewards) {
+        this.pouchRewards = pouchRewards;
+    }
+
+    public void setBlacklistedRegions(List<String> blacklistedRegions) {
+        this.blacklistedRegions = blacklistedRegions;
+    }
+
+    public void setBlacklistedWorlds(List<String> blacklistedWorlds) {
+        this.blacklistedWorlds = blacklistedWorlds;
+    }
+
+    public void setUnrevealedFirstFormat(String unrevealedFirstFormat) {
+        this.unrevealedFirstFormat = unrevealedFirstFormat;
+    }
+
+    public void setUnrevealedSecondFormat(String unrevealedSecondFormat) {
+        this.unrevealedSecondFormat = unrevealedSecondFormat;
+    }
+
+    public void setUnrevealedSubtitle(String unrevealedSubtitle) {
+        this.unrevealedSubtitle = unrevealedSubtitle;
+    }
+
+    public void setRevealedFirstFormat(String revealedFirstFormat) {
+        this.revealedFirstFormat = revealedFirstFormat;
+    }
+
+    public void setRevealedSecondFormat(String revealedSecondFormat) {
+        this.revealedSecondFormat = revealedSecondFormat;
+    }
+
+    public void setRevealedTitle(String revealedTitle) {
+        this.revealedTitle = revealedTitle;
+    }
+
+    public void setRevealedSubtitle(String revealedSubtitle) {
+        this.revealedSubtitle = revealedSubtitle;
+    }
+
+    public void setFormat(boolean format) {
+        this.format = format;
     }
 
     public String getId() {
@@ -70,6 +151,38 @@ public class Pouch {
         return blacklistedWorlds;
     }
 
+    public String getUnrevealedFirstFormat() {
+        return unrevealedFirstFormat;
+    }
+
+    public String getUnrevealedSecondFormat() {
+        return unrevealedSecondFormat;
+    }
+
+    public String getUnrevealedSubtitle() {
+        return unrevealedSubtitle;
+    }
+
+    public String getRevealedFirstFormat() {
+        return revealedFirstFormat;
+    }
+
+    public String getRevealedSecondFormat() {
+        return revealedSecondFormat;
+    }
+
+    public String getRevealedTitle() {
+        return revealedTitle;
+    }
+
+    public String getRevealedSubtitle() {
+        return revealedSubtitle;
+    }
+
+    public boolean requireFormat() {
+        return format;
+    }
+
     public long getAmount() {
         if (minAmount == maxAmount) return minAmount;
         return ThreadLocalRandom.current().nextLong(minAmount, maxAmount);
@@ -81,20 +194,21 @@ public class Pouch {
             String numberStr = String.valueOf(amount);
 
             int numberWidth = numberStr.toCharArray().length;
-            int number = 0;
+            int number = numberWidth;
 
             @Override
             public void run() {
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("&a&l&n$");
 
-                for (int i = 0; i <= number; ++i) {
-                    stringBuilder.append(numberStr.charAt(i));
-                }
+                String unrevealed = number == 0 ? "" : numberStr.substring(0, number);
+                String revealed = number == 0 ? numberStr : numberStr.split(unrevealed, 2)[1];
 
-                stringBuilder.append("&c&l&n&k");
-                number++;
-                stringBuilder.append(numberStr.substring(number));
+                stringBuilder.append(getUnrevealedFirstFormat());
+                stringBuilder.append(unrevealed);
+
+                stringBuilder.append(getUnrevealedSecondFormat());
+                number--;
+                stringBuilder.append(revealed);
                 stringBuilder.append("&r");
 
                 JSONObject titleObj = new JSONObject();
@@ -103,15 +217,14 @@ public class Pouch {
                 POUCHES.getTitle().sendTitle(player, Common.translate(titleObj.toJSONString()));
 
                 JSONObject subTitleObj = new JSONObject();
-                subTitleObj.put("text", "&7&o(( Opening pouch... ))");
+                subTitleObj.put("text", getUnrevealedSubtitle());
 
                 POUCHES.getTitle().sendSubtitle(player, Common.translate(subTitleObj.toJSONString()));
-                System.out.println(" ");
+//                System.out.println(" ");
 
-
-                if (number == numberWidth) {
+                if (number == -1) {
                     new BukkitRunnable() {
-                        int blink = 6;
+                        int blink = 12;
 
                         @Override
                         public void run() {
@@ -119,11 +232,11 @@ public class Pouch {
                             boolean isEven = blink % 2 == 0;
 
                             JSONObject titleObj = new JSONObject();
-                            titleObj.put("text", (isEven ? "&a" : "&c") + "&l$" + formattedNumber);
+                            titleObj.put("text", (isEven ? getRevealedFirstFormat() : getRevealedSecondFormat()) + getRevealedTitle().replace("%amount%", requireFormat() ? formattedNumber : numberStr));
                             POUCHES.getTitle().sendTitle(player, Common.translate(titleObj.toJSONString()));
 
                             JSONObject subTitleObj = new JSONObject();
-                            subTitleObj.put("text", "&7&o(( Congratulations! ))");
+                            subTitleObj.put("text", getRevealedSubtitle());
                             POUCHES.getTitle().sendSubtitle(player, Common.translate(subTitleObj.toJSONString()));
 
                             blink--;

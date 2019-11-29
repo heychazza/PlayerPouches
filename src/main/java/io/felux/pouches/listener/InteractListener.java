@@ -47,10 +47,10 @@ public class InteractListener implements Listener {
 
         player.sendMessage(ChatColor.YELLOW + "You clicked the " + pouch.getId() + " pouch.");
 
-        System.out.println("Player: " + player.getName());
-        System.out.println("Pouch: " + pouch);
-        System.out.println("Amount: " + amount);
-        System.out.println(" ");
+//        System.out.println("Player: " + player.getName());
+//        System.out.println("Pouch: " + pouch);
+//        System.out.println("Amount: " + amount);
+//        System.out.println(" ");
 
         for (String reward : pouch.getPouchRewards()) {
             player.sendMessage(ChatColor.YELLOW + "[REWARD] " + ChatColor.WHITE + reward);
