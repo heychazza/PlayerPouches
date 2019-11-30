@@ -16,11 +16,15 @@ public class GiveCommand {
 
         final Player target = Bukkit.getPlayer(args[0]);
         if (target == null) {
-            Lang.COMMAND_UNKNOWN.send(sender, Lang.PREFIX.asString());
+            Lang.ERROR_INVALID_PLAYER.send(sender, Lang.PREFIX.asString());
             return;
         }
 
         final Pouch pouch = Pouches.getInstance().getPouchManager().getPouch(args[1]);
+        if (pouch == null) {
+            Lang.ERROR_INVALID_POUCH.send(sender, Lang.PREFIX.asString());
+            return;
+        }
         ItemStack pouchItem = pouch.getItem().clone();
         pouchItem.setAmount(amount);
         target.getInventory().addItem(pouchItem);

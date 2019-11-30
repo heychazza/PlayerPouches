@@ -18,21 +18,23 @@ public enum Lang {
     HELP_COMMAND_FORMAT(" &d/pouches {1} &8- &7{2}"),
     HELP_COMMAND_FOOTER("", "{0} &7Total of &f{1} &7commands."),
 
-    RELOAD_COMMAND("{0} &7Successfully reloaded the configuration file."),
+    LIST_COMMAND_HEADER("", "{0} &7Listing Pouches:", "&7"),
+    LIST_COMMAND_FORMAT(" &8- &d{1}"),
+    LIST_COMMAND_FOOTER("", "{0} &7Total of &f{1} &7added."),
+
+    RELOAD_COMMAND("{0} &7Successfully reloaded pouches (&d{1} &7loaded)."),
+    CREATE_COMMAND("{0} &7Successfully created the &d{1} &7pouch."),
 
     GIVE_COMMAND_SELF("{0} &7You've given yourself a &d{1} &7pouch (&f{2}x&7)."),
     GIVE_COMMAND_OTHER("{0} &7You've given &d{1} &7a &5{2} &7pouch (&f{3}x&7)."),
 
-    PROGRESS_START("&8["),
-    PROGRESS_CHARACTER(":"),
-    PROGRESS_END("&8]"),
-    PROGRESS_INCOMPLETE("&7"),
-    PROGRESS_COMPLETE("&a"),
+    ERROR_NO_PERMISSION("{0} &cYou don't have permissions to do that."),
+    ERROR_PLAYER_ONLY("{0} &cThe command or args specified can only be used by a player."),
+    ERROR_INVALID_COMMAND("{0} &cThat command doesn't exist, use &f/pouch help&c."),
+    ERROR_INVALID_PLAYER("{0} &cThat player couldn't be found."),
+    ERROR_INVALID_POUCH("{0} &cThat pouch couldn't be found."),
+    ERROR_ALREADY_EXISTS("{0} &cThat pouch already exists."),
 
-    COMMAND_NO_PERMISSION("{0} &cYou don't have permissions to do that."),
-    COMMAND_PLAYER_ONLY("{0} &cThe command or args specified can only be used by a player."),
-    COMMAND_INVALID("{0} &cThat command doesn't exist, use &f/pouch help&c."),
-    COMMAND_UNKNOWN("{0} &cThat player couldn't be found."),
     COMMAND_USAGE("{0} &7Usage: &d/pouch {1}");
 
     private static FileConfiguration c;

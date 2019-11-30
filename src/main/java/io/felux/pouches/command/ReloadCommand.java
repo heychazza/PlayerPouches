@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 public class ReloadCommand {
     @Command(aliases = {"reload"}, about = "Reload the plugin.", permission = "pouches.reload", usage = "reload")
     public static void execute(final CommandSender sender, final Pouches plugin, final String[] args) {
-//        plugin.handleReload();
-        Lang.RELOAD_COMMAND.send(sender, Lang.PREFIX.asString());
+        plugin.handleReload();
+        Lang.RELOAD_COMMAND.send(sender, Lang.PREFIX.asString(), plugin.getPouchManager().getPouches().size());
     }
 }

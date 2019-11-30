@@ -1,9 +1,7 @@
 package io.felux.pouches.command.util;
 
 import io.felux.pouches.Pouches;
-import io.felux.pouches.command.GiveCommand;
-import io.felux.pouches.command.HelpCommand;
-import io.felux.pouches.command.ReloadCommand;
+import io.felux.pouches.command.*;
 import io.felux.pouches.util.Lang;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -26,7 +24,9 @@ public class CommandManager {
         List<Class<?>> commandClasses = Arrays.asList(
                 HelpCommand.class,
                 GiveCommand.class,
-                ReloadCommand.class
+                ReloadCommand.class,
+                CreateCommand.class,
+                ListCommand.class
         );
 
         for (Class cmdClass : commandClasses) {
@@ -68,12 +68,12 @@ public class CommandManager {
                 Command commandAnnotation = commandMethod.getAnnotation(Command.class);
 
                 if (!sender.hasPermission(commandAnnotation.permission()) && (sender instanceof Player)) {
-                    Lang.COMMAND_NO_PERMISSION.send(sender, Lang.PREFIX.asString());
+                    Lang.ERROR_NO_PERMISSION.send(sender, Lang.PREFIX.asString());
                     return true;
                 }
 
                 if (commandMethod.getParameters()[0].getType() == Player.class && !(sender instanceof Player)) {
-                    Lang.COMMAND_PLAYER_ONLY.send(sender, Lang.PREFIX.asString());
+                    Lang.ERROR_PLAYER_ONLY.send(sender, Lang.PREFIX.asString());
                     return true;
                 }
 
@@ -87,7 +87,7 @@ public class CommandManager {
                 e.printStackTrace();
             }
         } else {
-            Lang.COMMAND_INVALID.send(sender, Lang.PREFIX.asString());
+            Lang.ERROR_INVALID_COMMAND.send(sender, Lang.PREFIX.asString());
         }
 
         return true;
