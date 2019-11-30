@@ -1,7 +1,8 @@
 package io.felux.pouches;
 
-import io.felux.pouches.manager.ListenerManager;
+import io.felux.pouches.hook.WorldGuardHook;
 import io.felux.pouches.manager.FileManager;
+import io.felux.pouches.manager.ListenerManager;
 import io.felux.pouches.manager.PouchManager;
 import io.felux.pouches.title.*;
 import io.felux.pouches.util.PouchMapper;
@@ -34,6 +35,7 @@ public class Pouches extends JavaPlugin {
                 fileManager = new FileManager(instance);
                 pouchManager = new PouchManager(fileManager.getPouchConfigs().stream().map(PouchMapper::voucherMap).collect(Collectors.toList()));
                 ListenerManager.register();
+                WorldGuardHook.register();
             }
         }.runTaskAsynchronously(this);
     }

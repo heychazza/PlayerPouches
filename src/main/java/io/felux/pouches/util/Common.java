@@ -19,20 +19,6 @@ public class Common {
         return translatedList;
     }
 
-    private static String prefix = "[V]";
-
-    public static void loading(String object) {
-        sendConsoleMessage(prefix + " Loading " + object + "..");
-    }
-
-    public static void sendMessage(String object) {
-        sendConsoleMessage(prefix + " " + object);
-    }
-
-    public static void sendConsoleMessage(String msg) {
-        Bukkit.getConsoleSender().sendMessage(translate(msg));
-    }
-
     private static String parsePlaceholders(OfflinePlayer p, String text) {
         return PlaceholderAPI.setPlaceholders(p, text);
     }

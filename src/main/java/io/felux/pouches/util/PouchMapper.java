@@ -16,9 +16,9 @@ public class PouchMapper {
         pouch.setPermission(data.getBoolean("settings.permission", false));
         pouch.setMinAmount(data.getLong("settings.amount.min", 1000));
         pouch.setMaxAmount(data.getLong("settings.amount.max", 3000));
-        pouch.setPouchRewards(data.getStringList("rewards"));
-        pouch.setBlacklistedRegions(data.getStringList("settings.blacklist.regions"));
-        pouch.setBlacklistedWorlds(data.getStringList("settings.blacklist.worlds"));
+        pouch.setRewards(data.getStringList("rewards"));
+        pouch.setBlacklistedRegions(data.getStringList("settings.blacklist.region"));
+        pouch.setBlacklistedWorlds(data.getStringList("settings.blacklist.world"));
 
         pouch.setUnrevealedFirstFormat(data.getString("settings.title.unrevealed.first"));
         pouch.setUnrevealedSecondFormat(data.getString("settings.title.unrevealed.second"));

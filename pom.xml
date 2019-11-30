@@ -83,6 +83,10 @@
                                     <pattern>de.tr7zw.itemnbtapi</pattern>
                                     <shadedPattern>${project.groupId}.${project.artifactId}.nbt</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>org.codemc.worldguardwrapper</pattern>
+                                    <shadedPattern>${project.groupId}.${project.artifactId}.util.wrapper</shadedPattern>
+                                </relocation>
                             </relocations>
                         </configuration>
                     </execution>
@@ -134,7 +138,6 @@
             <groupId>org.codemc.worldguardwrapper</groupId>
             <artifactId>worldguardwrapper</artifactId>
             <version>1.1.6-SNAPSHOT</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.Chazza.Item-NBT-API</groupId>

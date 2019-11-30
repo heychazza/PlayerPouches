@@ -3,6 +3,7 @@ package io.felux.pouches.api;
 import com.google.common.collect.Maps;
 import io.felux.pouches.Pouches;
 import io.felux.pouches.util.Common;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -21,7 +22,7 @@ public class Pouch {
     private boolean permission;
     private long minAmount;
     private long maxAmount;
-    private List<String> pouchRewards;
+    private List<String> rewards;
     private List<String> blacklistedRegions;
     private List<String> blacklistedWorlds;
 
@@ -47,11 +48,11 @@ public class Pouch {
         this.item = item;
     }
 
-    public Pouch(String id, ItemStack item, boolean permission, Long minAmount, Long maxAmount, List<String> pouchRewards, List<String> blacklistedRegions, List<String> blacklistedWorlds) {
+    public Pouch(String id, ItemStack item, boolean permission, Long minAmount, Long maxAmount, List<String> rewards, List<String> blacklistedRegions, List<String> blacklistedWorlds) {
         this.id = id.toLowerCase();
         this.item = item;
         this.permission = permission;
-        this.pouchRewards = pouchRewards;
+        this.rewards = rewards;
         this.minAmount = minAmount;
         this.maxAmount = maxAmount;
         this.blacklistedRegions = blacklistedRegions;
@@ -78,8 +79,8 @@ public class Pouch {
         this.maxAmount = maxAmount;
     }
 
-    public void setPouchRewards(List<String> pouchRewards) {
-        this.pouchRewards = pouchRewards;
+    public void setRewards(List<String> rewards) {
+        this.rewards = rewards;
     }
 
     public void setBlacklistedRegions(List<String> blacklistedRegions) {
@@ -139,8 +140,8 @@ public class Pouch {
         return true;
     }
 
-    public List<String> getPouchRewards() {
-        return pouchRewards;
+    public List<String> getRewards() {
+        return rewards;
     }
 
     public List<String> getBlacklistedRegions() {
@@ -224,11 +225,14 @@ public class Pouch {
 
                 if (number == -1) {
                     new BukkitRunnable() {
-                        int blink = 12;
+                        int blink = 10;
 
                         @Override
                         public void run() {
-                            if (blink == 0) cancel();
+                            if (blink == 0) {
+                                runRewards(player, amount);
+                                cancel();
+                            }
                             boolean isEven = blink % 2 == 0;
 
                             JSONObject titleObj = new JSONObject();
@@ -240,13 +244,40 @@ public class Pouch {
                             POUCHES.getTitle().sendSubtitle(player, Common.translate(subTitleObj.toJSONString()));
 
                             blink--;
-
                         }
                     }.runTaskTimer(POUCHES, 10, 3);
                     cancel();
                 }
             }
         }.runTaskTimer(Pouches.getInstance(), 10, 10);
+    }
+
+    private void runRewards(Player p, Long amount) {
+        for (String msg : getRewards()) {
+            boolean singleAction = !msg.contains(" ");
+            String actionPrefix = singleAction ? msg : msg.split(" ", 2)[0].toUpperCase();
+            String actionData = singleAction ? "" : msg.split(" ", 2)[1];
+            actionData = Common.translate(actionData);
+            actionData = actionData.replace("%player%", p.getName());
+            actionData = actionData.replace("%amount%", amount + "");
+
+            switch (actionPrefix) {
+                case "[CONSOLE]":
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), actionData);
+                    break;
+                case "[PLAYER]":
+                    p.performCommand(actionData);
+                    break;
+                case "[BROADCAST]":
+                    Bukkit.broadcastMessage(actionData);
+                    break;
+                case "[MESSAGE]":
+                    p.sendMessage(actionData);
+                    break;
+                case "[CHAT]":
+                    p.chat(actionData);
+            }
+        }
     }
 
     public static Map<String, Pouch> getPouches() {

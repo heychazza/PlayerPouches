@@ -1,12 +1,12 @@
 package io.felux.pouches.title;
 
-import net.minecraft.server.v1_10_R1.IChatBaseComponent;
-import net.minecraft.server.v1_10_R1.PacketPlayOutTitle;
-import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
+import net.minecraft.server.v1_14_R1.IChatBaseComponent;
+import net.minecraft.server.v1_14_R1.PacketPlayOutTitle;
+import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-public class Title_v1_10_R1 implements Title {
-    public Title_v1_10_R1() {
+public class Title_v1_14_R1 implements Title {
+    public Title_v1_14_R1() {
         super();
     }
 
