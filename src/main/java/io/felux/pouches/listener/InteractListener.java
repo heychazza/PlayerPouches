@@ -33,8 +33,8 @@ public class InteractListener implements Listener {
         if (block != null && itemStack != null && itemStack.getType() != Material.AIR) {
             NBTItem nbt = new NBTItem(itemStack);
 
-            if (nbt.hasKey("pouches-id") && Pouches.getInstance().getPouchManager().getVoucher(nbt.getString("pouches-id")) != null) {
-                Pouch pouch = Pouches.getInstance().getPouchManager().getVoucher(nbt.getString("pouches-id"));
+            if (nbt.hasKey("pouches-id") && Pouches.getInstance().getPouchManager().getPouch(nbt.getString("pouches-id")) != null) {
+                Pouch pouch = Pouches.getInstance().getPouchManager().getPouch(nbt.getString("pouches-id"));
 
                 if (pouch.getBlacklistedWorlds().contains(player.getWorld().getName())) {
                     player.sendMessage(ChatColor.RED + "You cannot use this pouch in this world!");

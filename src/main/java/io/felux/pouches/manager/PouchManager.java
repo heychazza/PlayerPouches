@@ -16,7 +16,7 @@ public class PouchManager {
         return pouches;
     }
 
-    public Pouch getVoucher(String id) {
+    public Pouch getPouch(String id) {
         for (Pouch pouch : pouches) {
             if (pouch.getId().equalsIgnoreCase(id)) {
                 return pouch;

@@ -215,12 +215,12 @@ public class Pouch {
                 JSONObject titleObj = new JSONObject();
                 titleObj.put("text", stringBuilder.toString());
 
-                POUCHES.getTitle().sendTitle(player, Common.translate(titleObj.toJSONString()));
+                Common.getTitle().sendTitle(player, Common.translate(titleObj.toJSONString()));
 
                 JSONObject subTitleObj = new JSONObject();
                 subTitleObj.put("text", getUnrevealedSubtitle());
 
-                POUCHES.getTitle().sendSubtitle(player, Common.translate(subTitleObj.toJSONString()));
+                Common.getTitle().sendSubtitle(player, Common.translate(subTitleObj.toJSONString()));
 //                System.out.println(" ");
 
                 if (number == -1) {
@@ -237,11 +237,11 @@ public class Pouch {
 
                             JSONObject titleObj = new JSONObject();
                             titleObj.put("text", (isEven ? getRevealedFirstFormat() : getRevealedSecondFormat()) + getRevealedTitle().replace("%amount%", requireFormat() ? formattedNumber : numberStr));
-                            POUCHES.getTitle().sendTitle(player, Common.translate(titleObj.toJSONString()));
+                            Common.getTitle().sendTitle(player, Common.translate(titleObj.toJSONString()));
 
                             JSONObject subTitleObj = new JSONObject();
                             subTitleObj.put("text", getRevealedSubtitle());
-                            POUCHES.getTitle().sendSubtitle(player, Common.translate(subTitleObj.toJSONString()));
+                            Common.getTitle().sendSubtitle(player, Common.translate(subTitleObj.toJSONString()));
 
                             blink--;
                         }

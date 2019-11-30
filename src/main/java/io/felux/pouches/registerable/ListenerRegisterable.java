@@ -1,10 +1,10 @@
-package io.felux.pouches.manager;
+package io.felux.pouches.registerable;
 
 import io.felux.pouches.Pouches;
 import io.felux.pouches.listener.InteractListener;
 import org.bukkit.event.Listener;
 
-public class ListenerManager {
+public class ListenerRegisterable {
     private static final Listener[] LISTENERS = {
             new InteractListener()
     };
