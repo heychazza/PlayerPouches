@@ -268,6 +268,7 @@ public class Pouch {
             actionData = Common.translate(actionData);
             actionData = actionData.replace("%player%", p.getName());
             actionData = actionData.replace("%amount%", amount + "");
+            actionData = Common.parse(p, actionData);
 
             switch (actionPrefix) {
                 case "[CONSOLE]":

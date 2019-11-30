@@ -7,12 +7,12 @@ import io.felux.pouches.api.PouchRedeemEvent;
 import io.felux.pouches.hook.WorldGuardHook;
 import io.felux.pouches.util.Lang;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 public class InteractListener implements Listener {
@@ -22,21 +22,28 @@ public class InteractListener implements Listener {
         Player player = e.getPlayer();
         ItemStack itemStack = e.getItem();
 
+        if (!Bukkit.getVersion().contains("1.8")) {
+            if (e.getHand() == EquipmentSlot.OFF_HAND) {
+                return; // off hand packet, ignore.
+            }
+        }
+
         if (itemStack != null && itemStack.getType() != Material.AIR) {
             NBTItem nbt = new NBTItem(itemStack);
 
             if (nbt.hasKey("pouches-id") && Pouches.getInstance().getPouchManager().getPouch(nbt.getString("pouches-id")) != null) {
+                e.setCancelled(true);
                 Pouch pouch = Pouches.getInstance().getPouchManager().getPouch(nbt.getString("pouches-id"));
 
                 if (pouch.getBlacklistedWorlds().contains(player.getWorld().getName())) {
-                    player.sendMessage(ChatColor.RED + "You cannot use this pouch in this world!");
+                    Lang.CANNOT_USE_IN_WORLD.send(player, Lang.PREFIX.asString());
                     return;
                 }
 
                 if (WorldGuardHook.isEnabled()) {
                     for (final String region : pouch.getBlacklistedRegions()) {
                         if (WorldGuardHook.checkIfPlayerInRegion(player, region)) {
-                            player.sendMessage(ChatColor.RED + "You cannot use this pouch in this region!");
+                            Lang.CANNOT_USE_IN_REGION.send(player, Lang.PREFIX.asString());
                             return;
                         }
                     }
@@ -70,7 +77,6 @@ public class InteractListener implements Listener {
         else player.getItemInHand().setAmount(pouchItem.getAmount() - 1);
 
         Pouch.getCurrentPouches().add(player.getUniqueId());
-        player.sendMessage(ChatColor.YELLOW + "You opened the " + ChatColor.GOLD + pouch.getId() + ChatColor.YELLOW + " pouch.");
         pouch.sendTitle(player, amount);
     }
 }

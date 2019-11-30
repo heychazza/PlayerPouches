@@ -36,7 +36,7 @@ public class CreateCommand {
         }
 
         FileConfiguration pouchConfig = YamlConfiguration.loadConfiguration(pouchFile);
-        pouchConfig.options().header("Pouches " + plugin.getDescription().getVersion() + " Configuration" + "\n" + "Configure your '" + pouchId.toLowerCase() + "' pouch here.");
+        pouchConfig.options().header(plugin.getDescription().getName() + " v" + plugin.getDescription().getVersion() + " Configuration" + "\n" + "Configure your '" + pouchId.toLowerCase() + "' pouch here.");
         pouchConfig.set("id", pouchId);
         pouchConfig.set("item.name", "&b" + pouchId + " Pouch");
         pouchConfig.set("item.lore", Arrays.asList("&7Go into the plugin folder", "&7to edit this pouch.", "&7", "&7plugins/Pouches/pouch/" + pouchId.toLowerCase() + ".yml"));

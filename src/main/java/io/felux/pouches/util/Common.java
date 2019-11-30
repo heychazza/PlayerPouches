@@ -1,11 +1,12 @@
 package io.felux.pouches.util;
 
 import io.felux.pouches.Pouches;
-import io.felux.pouches.title.*;
+import io.felux.pouches.title.Title;
+import io.felux.pouches.title.version.*;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -24,11 +25,11 @@ public class Common {
         return translatedList;
     }
 
-    private static String parsePlaceholders(OfflinePlayer p, String text) {
+    private static String parsePlaceholders(Player p, String text) {
         return PlaceholderAPI.setPlaceholders(p, text);
     }
 
-    public static String parse(OfflinePlayer p, String text) {
+    public static String parse(Player p, String text) {
         return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") ? parsePlaceholders(p, text) : text;
     }
 

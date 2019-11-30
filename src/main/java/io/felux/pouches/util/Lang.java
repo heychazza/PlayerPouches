@@ -37,6 +37,9 @@ public enum Lang {
     ERROR_ALREADY_EXISTS("{0} &7That pouch already exists."),
     ERROR_NO_POUCHES_EXIST("{0} &7No pouches exist, try &d/pouch create <id>&7."),
 
+    CANNOT_USE_IN_REGION("{0} &7This pouch cannot be used in that region."),
+    CANNOT_USE_IN_WORLD("{0} &7This pouch cannot be used in that world."),
+
     COMMAND_USAGE("{0} &7Usage: &d/pouch {1}");
 
     private static FileConfiguration c;
