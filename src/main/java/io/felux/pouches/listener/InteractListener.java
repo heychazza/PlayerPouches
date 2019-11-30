@@ -22,7 +22,9 @@ public class InteractListener implements Listener {
         Player player = e.getPlayer();
         ItemStack itemStack = e.getItem();
 
-        if (!Bukkit.getVersion().contains("1.8")) {
+        boolean hasOffHand = !Bukkit.getVersion().contains("1.8");
+
+        if (hasOffHand) {
             if (e.getHand() == EquipmentSlot.OFF_HAND) {
                 return; // off hand packet, ignore.
             }
