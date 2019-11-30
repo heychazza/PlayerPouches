@@ -14,6 +14,11 @@ public class GiveCommand {
     public static void execute(final CommandSender sender, final Pouches plugin, final String[] args) {
         final int amount = args.length > 2 ? Integer.parseInt(args[2]) : 1;
 
+        if (plugin.getPouchManager().getPouches().isEmpty()) {
+            Lang.ERROR_NO_POUCHES_EXIST.send(sender, Lang.PREFIX.asString());
+            return;
+        }
+
         final Player target = Bukkit.getPlayer(args[0]);
         if (target == null) {
             Lang.ERROR_INVALID_PLAYER.send(sender, Lang.PREFIX.asString());

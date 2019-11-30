@@ -10,30 +10,32 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum Lang {
-    PREFIX("&8[&dPouches&8]"),
+    PREFIX("&d[&lP&d]"),
 
-    MAIN_COMMAND("{0} &7Running &f{1} &7version &6{2} &7by &d{3}&7."),
+    MAIN_COMMAND("{0} &7You're running &f{1} &7version &dv{2} &7by &f{3}&7."),
 
-    HELP_COMMAND_HEADER("", "{0} &7Listing Commands:", "&7"),
+    HELP_COMMAND_HEADER("", "{0} &7Listing commands:", "&7"),
     HELP_COMMAND_FORMAT(" &d/pouches {1} &8- &7{2}"),
-    HELP_COMMAND_FOOTER("", "{0} &7Total of &f{1} &7commands."),
+    HELP_COMMAND_FOOTER("", "{0} &7A total of &f{1} &7added."),
 
-    LIST_COMMAND_HEADER("", "{0} &7Listing Pouches:", "&7"),
+    LIST_COMMAND_HEADER("", "{0} &7Listing pouches:", "&7"),
     LIST_COMMAND_FORMAT(" &8- &d{1}"),
-    LIST_COMMAND_FOOTER("", "{0} &7Total of &f{1} &7added."),
+    LIST_COMMAND_FOOTER("", "{0} &7A total of &f{1} &7added."),
 
-    RELOAD_COMMAND("{0} &7Successfully reloaded pouches (&d{1} &7loaded)."),
+    RELOAD_COMMAND("{0} &7Successfully reloaded plugin with &d{1} &7loaded."),
     CREATE_COMMAND("{0} &7Successfully created the &d{1} &7pouch."),
 
-    GIVE_COMMAND_SELF("{0} &7You've given yourself a &d{1} &7pouch (&f{2}x&7)."),
-    GIVE_COMMAND_OTHER("{0} &7You've given &d{1} &7a &5{2} &7pouch (&f{3}x&7)."),
+    GIVE_COMMAND_SELF("{0} &7You've given yourself {2}x &d{1} &7pouch."),
+    GIVE_COMMAND_OTHER("{0} &7You've given &f{1} &7{3}x &d{2} &7pouch."),
 
-    ERROR_NO_PERMISSION("{0} &cYou don't have permissions to do that."),
-    ERROR_PLAYER_ONLY("{0} &cThe command or args specified can only be used by a player."),
-    ERROR_INVALID_COMMAND("{0} &cThat command doesn't exist, use &f/pouch help&c."),
-    ERROR_INVALID_PLAYER("{0} &cThat player couldn't be found."),
-    ERROR_INVALID_POUCH("{0} &cThat pouch couldn't be found."),
-    ERROR_ALREADY_EXISTS("{0} &cThat pouch already exists."),
+    ERROR_NO_PERMISSION("{0} &7You don't have permission to do that."),
+    ERROR_PLAYER_ONLY("{0} &7That's a player only command."),
+    ERROR_INVALID_COMMAND("{0} &7That's an invalid command, use &f/pouch help&7."),
+    ERROR_INVALID_PLAYER("{0} &7That player couldn't be found."),
+    ERROR_INVALID_POUCH("{0} &7That pouch couldn't be found."),
+    ERROR_ALREADY_OPENING("{0} &7You're already opening a pouch."),
+    ERROR_ALREADY_EXISTS("{0} &7That pouch already exists."),
+    ERROR_NO_POUCHES_EXIST("{0} &7No pouches exist, try &d/pouch create <id>&7."),
 
     COMMAND_USAGE("{0} &7Usage: &d/pouch {1}");
 

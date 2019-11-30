@@ -5,32 +5,24 @@ import io.felux.pouches.Pouches;
 import io.felux.pouches.api.Pouch;
 import io.felux.pouches.api.PouchRedeemEvent;
 import io.felux.pouches.hook.WorldGuardHook;
+import io.felux.pouches.util.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class InteractListener implements Listener {
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        // TODO: Remove this once commands are added.
-        e.getPlayer().getInventory().addItem(Pouches.getInstance().getPouchManager().getPouches().get(0).getItem());
-    }
-
-    @EventHandler
     public void onPouchInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
-        Block block = e.getClickedBlock();
         ItemStack itemStack = e.getItem();
 
-        if (block != null && itemStack != null && itemStack.getType() != Material.AIR) {
+        if (itemStack != null && itemStack.getType() != Material.AIR) {
             NBTItem nbt = new NBTItem(itemStack);
 
             if (nbt.hasKey("pouches-id") && Pouches.getInstance().getPouchManager().getPouch(nbt.getString("pouches-id")) != null) {
@@ -50,12 +42,18 @@ public class InteractListener implements Listener {
                     }
                 }
 
+                if (Pouch.getCurrentPouches().contains(player.getUniqueId())) {
+                    Lang.ERROR_ALREADY_OPENING.send(player, Lang.PREFIX.asString());
+                    return;
+                }
+
                 PouchRedeemEvent pouchRedeemEvent = new PouchRedeemEvent(player, pouch, pouch.getAmount());
                 Bukkit.getServer().getPluginManager().callEvent(pouchRedeemEvent);
             }
         }
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onPouchRedeem(PouchRedeemEvent e) {
         if (e.isCancelled()) {
@@ -66,8 +64,12 @@ public class InteractListener implements Listener {
         Pouch pouch = e.getPouch();
         Long amount = e.getAmount();
 
-//        Pouches pouches = Pouches.getInstance();
+        ItemStack pouchItem = player.getItemInHand();
 
+        if (pouchItem.getAmount() == 1) player.setItemInHand(null);
+        else player.getItemInHand().setAmount(pouchItem.getAmount() - 1);
+
+        Pouch.getCurrentPouches().add(player.getUniqueId());
         player.sendMessage(ChatColor.YELLOW + "You opened the " + ChatColor.GOLD + pouch.getId() + ChatColor.YELLOW + " pouch.");
         pouch.sendTitle(player, amount);
     }

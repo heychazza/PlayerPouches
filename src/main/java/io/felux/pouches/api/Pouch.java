@@ -10,8 +10,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.json.simple.JSONObject;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Pouch {
@@ -48,16 +50,7 @@ public class Pouch {
         this.item = item;
     }
 
-    public Pouch(String id, ItemStack item, boolean permission, Long minAmount, Long maxAmount, List<String> rewards, List<String> blacklistedRegions, List<String> blacklistedWorlds) {
-        this.id = id.toLowerCase();
-        this.item = item;
-        this.permission = permission;
-        this.rewards = rewards;
-        this.minAmount = minAmount;
-        this.maxAmount = maxAmount;
-        this.blacklistedRegions = blacklistedRegions;
-        this.blacklistedWorlds = blacklistedWorlds;
-    }
+    private static List<UUID> currentPouches = new ArrayList<>();
 
     public void setId(String id) {
         this.id = id;
@@ -189,6 +182,21 @@ public class Pouch {
         return ThreadLocalRandom.current().nextLong(minAmount, maxAmount);
     }
 
+    public Pouch(String id, ItemStack item, boolean permission, Long minAmount, Long maxAmount, List<String> rewards, List<String> blacklistedRegions, List<String> blacklistedWorlds) {
+        this.id = id;
+        this.item = item;
+        this.permission = permission;
+        this.rewards = rewards;
+        this.minAmount = minAmount;
+        this.maxAmount = maxAmount;
+        this.blacklistedRegions = blacklistedRegions;
+        this.blacklistedWorlds = blacklistedWorlds;
+    }
+
+    public static List<UUID> getCurrentPouches() {
+        return currentPouches;
+    }
+
     public void sendTitle(Player player, Long amount) {
         new BukkitRunnable() {
             String formattedNumber = NumberFormat.getIntegerInstance().format(amount);
@@ -221,7 +229,6 @@ public class Pouch {
                 subTitleObj.put("text", getUnrevealedSubtitle());
 
                 Common.getTitle().sendSubtitle(player, Common.translate(subTitleObj.toJSONString()));
-//                System.out.println(" ");
 
                 if (number == -1) {
                     new BukkitRunnable() {
@@ -231,6 +238,7 @@ public class Pouch {
                         public void run() {
                             if (blink == 0) {
                                 runRewards(player, amount);
+                                getCurrentPouches().remove(player.getUniqueId());
                                 cancel();
                             }
                             boolean isEven = blink % 2 == 0;
