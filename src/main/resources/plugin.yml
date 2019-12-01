@@ -2,6 +2,7 @@ name: ${plugin}
 version: ${project.version}
 main: ${package}
 author: "Felux"
+softdepend: ["WorldGuard"]
 website: https://felux.io/
 
 commands:
