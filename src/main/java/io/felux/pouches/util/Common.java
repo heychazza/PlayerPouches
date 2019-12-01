@@ -1,12 +1,16 @@
 package io.felux.pouches.util;
 
+import de.tr7zw.itemnbtapi.NBTItem;
 import io.felux.pouches.Pouches;
+import io.felux.pouches.api.Pouch;
 import io.felux.pouches.title.Title;
 import io.felux.pouches.title.version.*;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -31,6 +35,15 @@ public class Common {
 
     public static String parse(Player p, String text) {
         return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") ? parsePlaceholders(p, text) : text;
+    }
+
+    public static Pouch getPouch(ItemStack itemStack) {
+        if (itemStack == null || itemStack.getType() == Material.AIR) return null;
+        NBTItem nbt = new NBTItem(itemStack);
+        if (nbt.hasKey("pouches-id") && Pouches.getInstance().getPouchManager().getPouch(nbt.getString("pouches-id")) != null)
+            return Pouches.getInstance().getPouchManager().getPouch(nbt.getString("pouches-id"));
+
+        return null;
     }
 
 

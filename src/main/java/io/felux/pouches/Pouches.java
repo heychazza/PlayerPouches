@@ -39,6 +39,7 @@ public class Pouches extends JavaPlugin {
     }
 
     public void handleReload() {
+        reloadConfig();
         fileManager = new FileManager(instance);
         pouchManager = new PouchManager(fileManager.getPouchConfigs().stream().map(PouchMapper::voucherMap).collect(Collectors.toList()));
         Lang.init(this);
