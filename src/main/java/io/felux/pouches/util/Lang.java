@@ -10,37 +10,40 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum Lang {
-    PREFIX("&d[&lP&d]"),
+    PREFIX("&b[&lP&b]"),
 
-    MAIN_COMMAND("{0} &7You're running &f{1} &7version &dv{2} &7by &f{3}&7."),
+    MAIN_COMMAND("{0} &7You're running &f{1} &7version &bv{2} &7by &f{3}&7."),
 
     HELP_COMMAND_HEADER("", "{0} &7Listing commands:", "&7"),
-    HELP_COMMAND_FORMAT(" &d/pouches {1} &8- &7{2}"),
+    HELP_COMMAND_FORMAT(" &b/pouches {1} &8- &7{2}"),
     HELP_COMMAND_FOOTER("", "{0} &7A total of &f{1} &7added."),
 
     LIST_COMMAND_HEADER("", "{0} &7Listing pouches:", "&7"),
-    LIST_COMMAND_FORMAT(" &8- &d{1}"),
+    LIST_COMMAND_FORMAT(" &8- &b{1}"),
     LIST_COMMAND_FOOTER("", "{0} &7A total of &f{1} &7added."),
 
-    RELOAD_COMMAND("{0} &7Successfully reloaded plugin with &d{1} &7loaded."),
-    CREATE_COMMAND("{0} &7Successfully created the &d{1} &7pouch."),
+    RELOAD_COMMAND("{0} &7Successfully reloaded plugin with &b{1} &7loaded."),
+    CREATE_COMMAND("{0} &7Successfully created the &b{1} &7pouch."),
 
-    GIVE_COMMAND_SELF("{0} &7You've given yourself {2}x &d{1} &7pouch."),
-    GIVE_COMMAND_OTHER("{0} &7You've given &f{1} &7{3}x &d{2} &7pouch."),
+    GIVE_COMMAND_SELF("{0} &7You've given yourself {2}x &b{1} &7pouch."),
+    GIVE_COMMAND_OTHER("{0} &7You've given &f{1} &7{3}x &b{2} &7pouch."),
 
-    ERROR_NO_PERMISSION("{0} &7You don't have permission to do that."),
+    GIVE_ALL_COMMAND("{0} &7You've given &f{1} &7online player(s) &7{3}x &b{2} &7pouch."),
+
+    ERROR_NO_PERMISSION_COMMAND("{0} &7You don't have permission to do that."),
+    ERROR_NO_PERMISSION_POUCH("{0} &7You need &bpouches.use.{1} &7to redeem that pouch."),
     ERROR_PLAYER_ONLY("{0} &7That's a player only command."),
     ERROR_INVALID_COMMAND("{0} &7That's an invalid command, use &f/pouch help&7."),
     ERROR_INVALID_PLAYER("{0} &7That player couldn't be found."),
     ERROR_INVALID_POUCH("{0} &7That pouch couldn't be found."),
     ERROR_ALREADY_OPENING("{0} &7You're already opening a pouch."),
     ERROR_ALREADY_EXISTS("{0} &7That pouch already exists."),
-    ERROR_NO_POUCHES_EXIST("{0} &7No pouches exist, try &d/pouch create <id>&7."),
+    ERROR_NO_POUCHES_EXIST("{0} &7No pouches exist, try &b/pouch create <id>&7."),
 
     CANNOT_USE_IN_REGION("{0} &7This pouch cannot be used in that region."),
     CANNOT_USE_IN_WORLD("{0} &7This pouch cannot be used in that world."),
 
-    COMMAND_USAGE("{0} &7Usage: &d/pouch {1}");
+    COMMAND_USAGE("{0} &7Usage: &b/pouch {1}");
 
     private static FileConfiguration c;
     private String message;

@@ -24,6 +24,7 @@ public class CommandManager {
         List<Class<?>> commandClasses = Arrays.asList(
                 HelpCommand.class,
                 GiveCommand.class,
+                GiveAllCommand.class,
                 ReloadCommand.class,
                 CreateCommand.class,
                 ListCommand.class
@@ -68,7 +69,7 @@ public class CommandManager {
                 Command commandAnnotation = commandMethod.getAnnotation(Command.class);
 
                 if (!sender.hasPermission(commandAnnotation.permission()) && (sender instanceof Player)) {
-                    Lang.ERROR_NO_PERMISSION.send(sender, Lang.PREFIX.asString());
+                    Lang.ERROR_NO_PERMISSION_COMMAND.send(sender, Lang.PREFIX.asString());
                     return true;
                 }
 

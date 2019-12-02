@@ -3,6 +3,7 @@ package io.felux.pouches.registerable;
 import io.felux.pouches.Pouches;
 import io.felux.pouches.command.util.CommandExecutor;
 import io.felux.pouches.command.util.CommandManager;
+import org.bukkit.command.PluginCommand;
 
 public class CommandRegisterable {
     private static final Pouches POUCHES = Pouches.getInstance();
@@ -10,8 +11,14 @@ public class CommandRegisterable {
 
     public static void register() {
         commandManager = new CommandManager(Pouches.getInstance());
-        POUCHES.getCommand("pouches").setExecutor(new CommandExecutor(POUCHES));
-        if (POUCHES.getCommand("pouches").getPlugin() != POUCHES) {
+
+        PluginCommand pluginCommand = POUCHES.getCommand("pouches");
+        if (pluginCommand == null) {
+            throw new RuntimeException("The /pouches command isn't found, contact the developer!");
+        }
+
+        pluginCommand.setExecutor(new CommandExecutor(POUCHES));
+        if (pluginCommand.getPlugin() != POUCHES) {
             POUCHES.getLogger().warning("/pouches command is being handled by plugin other than " + POUCHES.getDescription().getName() + ". You must use /pouches:pouches instead.");
         }
     }

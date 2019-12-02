@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 
 public class ListCommand {
-    @Command(aliases = {"list"}, about = "List pouches.", permission = "pouches.list", usage = "list")
+    @Command(aliases = {"list"}, about = "List loaded pouches.", permission = "pouches.list", usage = "list")
     public static void execute(final CommandSender sender, final Pouches plugin, final String[] args) {
         List<Pouch> pouchList = plugin.getPouchManager().getPouches();
 

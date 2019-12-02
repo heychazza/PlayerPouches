@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class GiveCommand {
-    @Command(aliases = {"give"}, about = "Give a pouch.", permission = "pouches.give", usage = "give <player> <pouch> [amount]", requiredArgs = 2)
+    @Command(aliases = {"give"}, about = "Give a player a pouch.", permission = "pouches.give", usage = "give <player> <pouch> [amount]", requiredArgs = 2)
     public static void execute(final CommandSender sender, final Pouches plugin, final String[] args) {
         final int amount = args.length > 2 ? Integer.parseInt(args[2]) : 1;
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HelpCommand {
-    @Command(aliases = {"help"}, about = "View this menu.", permission = "pouches.help", usage = "help")
+    @Command(aliases = {"help"}, about = "View list of commands.", permission = "pouches.help", usage = "help")
     public static void execute(final CommandSender sender, final Pouches plugin, final String[] args) {
         final List<Method> commandMethods = new ArrayList<Method>();
         for (final Method method : CommandRegisterable.getCommandManager().getCommands().values()) {

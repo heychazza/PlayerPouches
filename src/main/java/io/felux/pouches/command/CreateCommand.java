@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class CreateCommand {
-    @Command(aliases = {"create"}, about = "Create a pouch.", permission = "pouches.create", usage = "create <id>", requiredArgs = 1)
+    @Command(aliases = {"create"}, about = "Create a pouch by the id <id>.", permission = "pouches.create", usage = "create <id>", requiredArgs = 1)
     public static void execute(final CommandSender sender, final Pouches plugin, final String[] args) {
         final String pouchId = args[0];
 
@@ -28,8 +28,12 @@ public class CreateCommand {
         File pouchFile = new File(plugin.getDataFolder() + "/pouch/" + pouchId.toLowerCase() + ".yml");
         if (!pouchFile.exists()) {
             try {
-                if (pouchFile.getParentFile().mkdir())
-                    pouchFile.createNewFile();
+                if (pouchFile.getParentFile().mkdir()) {
+
+                    if (!pouchFile.createNewFile()) {
+                        throw new RuntimeException("Failed to create pouch file at " + pouchFile.getPath() + "!");
+                    }
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -65,7 +69,7 @@ public class CreateCommand {
         }
 
         Lang.CREATE_COMMAND.send(sender, Lang.PREFIX.asString(), pouchId.toLowerCase());
-        plugin.handleReload();
+        plugin.loadPouches();
 
     }
 }

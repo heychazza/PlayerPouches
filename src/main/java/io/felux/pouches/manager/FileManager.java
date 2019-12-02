@@ -3,15 +3,12 @@ package io.felux.pouches.manager;
 import io.felux.pouches.Pouches;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileManager {
-    private static final JavaPlugin POUCHES = JavaPlugin.getProvidingPlugin(Pouches.class);
-
     private List<FileConfiguration> pouchData;
 
     public List<FileConfiguration> getPouchConfigs() {
@@ -24,23 +21,18 @@ public class FileManager {
 
         File[] files;
         if (!voucherFolder.exists()) {
-            if (voucherFolder.mkdirs())
-                files = voucherFolder.listFiles();
+            if (!voucherFolder.mkdirs()) {
+                throw new RuntimeException("Failed to create " + voucherFolder.getPath() + " directory!");
+            }
         }
 
         files = voucherFolder.listFiles();
-
-        if (files != null) {
-            pouchData = map(files);
-        }
+        if (files != null) pouchData = map(files);
     }
 
     public static List<FileConfiguration> map(File[] files) {
         List<FileConfiguration> fileData = new ArrayList<>();
-
-        for (File file : files) {
-            fileData.add(YamlConfiguration.loadConfiguration(file));
-        }
+        for (File file : files) fileData.add(YamlConfiguration.loadConfiguration(file));
         return fileData;
     }
 }

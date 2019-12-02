@@ -11,10 +11,7 @@ public class WorldGuardHook {
 
     public static void register() {
         enabled = Bukkit.getPluginManager().isPluginEnabled("WorldGuard");
-
-        if (enabled) {
-            worldGuardWrapper = WorldGuardWrapper.getInstance();
-        }
+        if (enabled) worldGuardWrapper = WorldGuardWrapper.getInstance();
     }
 
     public static boolean isEnabled() {

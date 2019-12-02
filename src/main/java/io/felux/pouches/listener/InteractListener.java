@@ -4,7 +4,6 @@ import io.felux.pouches.api.Pouch;
 import io.felux.pouches.api.PouchRedeemEvent;
 import io.felux.pouches.api.PouchSlot;
 import io.felux.pouches.hook.WorldGuardHook;
-import io.felux.pouches.util.Common;
 import io.felux.pouches.util.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -24,7 +23,7 @@ public class InteractListener implements Listener {
 
         if (itemStack == null || itemStack.getType() == Material.AIR) return;
 
-        Pouch pouch = Common.getPouch(itemStack);
+        Pouch pouch = Pouch.getPouch(itemStack);
         if (pouch == null) return;
 
         e.setCancelled(true);
@@ -34,6 +33,10 @@ public class InteractListener implements Listener {
         if (!Bukkit.getVersion().contains("1.8")) {
             if (e.getHand() == EquipmentSlot.OFF_HAND)
                 pouchSlot = PouchSlot.OFF_HAND;
+        }
+
+        if (!pouch.hasPermission(player)) {
+            return;
         }
 
         if (pouch.getBlacklistedWorlds().contains(player.getWorld().getName())) {

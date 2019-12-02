@@ -16,11 +16,6 @@ public class PouchManager {
     }
 
     public Pouch getPouch(String id) {
-        for (Pouch pouch : pouches) {
-            if (pouch.getId().equalsIgnoreCase(id)) {
-                return pouch;
-            }
-        }
-        return null;
+        return pouches.stream().filter(pouch -> pouch.getId().equalsIgnoreCase(id)).findFirst().orElse(null);
     }
 }

@@ -3,6 +3,7 @@ version: ${project.version}
 main: ${package}
 author: "Felux"
 softdepend: ["WorldGuard"]
+prefix: "P"
 website: https://felux.io/
 
 commands:

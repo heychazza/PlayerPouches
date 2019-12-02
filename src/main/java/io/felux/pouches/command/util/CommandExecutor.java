@@ -20,11 +20,9 @@ public class CommandExecutor implements org.bukkit.command.CommandExecutor, TabC
 
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command cmd, String label, String[] args) {
-        if (args.length == 0) {
-            return CommandRegisterable.getCommandManager().handle(sender, null, new String[]{});
-        } else {
+        if (args.length == 0) return CommandRegisterable.getCommandManager().handle(sender, null, new String[]{});
+        else
             return CommandRegisterable.getCommandManager().handle(sender, args[0], Arrays.stream(args).skip(1).toArray(String[]::new));
-        }
     }
 
     @Override

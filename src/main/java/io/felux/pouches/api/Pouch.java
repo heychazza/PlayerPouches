@@ -1,9 +1,12 @@
 package io.felux.pouches.api;
 
 import com.google.common.collect.Maps;
+import de.tr7zw.itemnbtapi.NBTItem;
 import io.felux.pouches.Pouches;
+import io.felux.pouches.registerable.TitleRegisterable;
 import io.felux.pouches.util.Common;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -128,9 +131,13 @@ public class Pouch {
         return permission;
     }
 
-    public boolean hasPermission(Player player) {
-        if (requiresPerm()) return player.hasPermission("pouches.use." + getId());
-        return true;
+    public static Pouch getPouch(ItemStack itemStack) {
+        if (itemStack == null || itemStack.getType() == Material.AIR) return null;
+        NBTItem nbt = new NBTItem(itemStack);
+        if (nbt.hasKey("pouches-id") && Pouches.getInstance().getPouchManager().getPouch(nbt.getString("pouches-id")) != null)
+            return Pouches.getInstance().getPouchManager().getPouch(nbt.getString("pouches-id"));
+
+        return null;
     }
 
     public List<String> getRewards() {
@@ -197,6 +204,11 @@ public class Pouch {
         return currentPouches;
     }
 
+    public boolean hasPermission(Player player) {
+        if (requiresPerm()) return player.hasPermission("pouches.use." + getId().toLowerCase());
+        return true;
+    }
+
     public void sendTitle(Player player, Long amount) {
         new BukkitRunnable() {
             String formattedNumber = NumberFormat.getIntegerInstance().format(amount);
@@ -223,12 +235,12 @@ public class Pouch {
                 JSONObject titleObj = new JSONObject();
                 titleObj.put("text", stringBuilder.toString());
 
-                Common.getTitle().sendTitle(player, Common.translate(titleObj.toJSONString()));
+                TitleRegisterable.getTitle().sendTitle(player, Common.translate(titleObj.toJSONString()));
 
                 JSONObject subTitleObj = new JSONObject();
                 subTitleObj.put("text", getUnrevealedSubtitle());
 
-                Common.getTitle().sendSubtitle(player, Common.translate(subTitleObj.toJSONString()));
+                TitleRegisterable.getTitle().sendSubtitle(player, Common.translate(subTitleObj.toJSONString()));
 
                 if (number == -1) {
                     new BukkitRunnable() {
@@ -245,11 +257,11 @@ public class Pouch {
 
                             JSONObject titleObj = new JSONObject();
                             titleObj.put("text", (isEven ? getRevealedFirstFormat() : getRevealedSecondFormat()) + getRevealedTitle().replace("%amount%", requireFormat() ? formattedNumber : numberStr));
-                            Common.getTitle().sendTitle(player, Common.translate(titleObj.toJSONString()));
+                            TitleRegisterable.getTitle().sendTitle(player, Common.translate(titleObj.toJSONString()));
 
                             JSONObject subTitleObj = new JSONObject();
                             subTitleObj.put("text", getRevealedSubtitle());
-                            Common.getTitle().sendSubtitle(player, Common.translate(subTitleObj.toJSONString()));
+                            TitleRegisterable.getTitle().sendSubtitle(player, Common.translate(subTitleObj.toJSONString()));
 
                             blink--;
                         }
@@ -260,8 +272,14 @@ public class Pouch {
         }.runTaskTimer(Pouches.getInstance(), 10, 10);
     }
 
+    public static Map<String, Pouch> getPouches() {
+        return pouches;
+    }
+
     private void runRewards(Player p, Long amount) {
-        for (String msg : getRewards()) {
+        List<String> strings = getRewards();
+        for (int i = 0, stringsSize = strings.size(); i < stringsSize; i++) {
+            String msg = strings.get(i);
             boolean singleAction = !msg.contains(" ");
             String actionPrefix = singleAction ? msg : msg.split(" ", 2)[0].toUpperCase();
             String actionData = singleAction ? "" : msg.split(" ", 2)[1];
@@ -287,9 +305,5 @@ public class Pouch {
                     p.chat(actionData);
             }
         }
-    }
-
-    public static Map<String, Pouch> getPouches() {
-        return pouches;
     }
 }

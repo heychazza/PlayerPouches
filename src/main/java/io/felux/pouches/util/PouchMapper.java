@@ -14,9 +14,11 @@ public class PouchMapper {
         Pouch pouch = new Pouch(data.getString("id", "invalid"));
         pouch.setItem(itemstackMap(data));
         pouch.setPermission(data.getBoolean("settings.permission", false));
+
         pouch.setMinAmount(data.getLong("settings.amount.min", 1000));
         pouch.setMaxAmount(data.getLong("settings.amount.max", 3000));
         pouch.setRewards(data.getStringList("rewards"));
+
         pouch.setBlacklistedRegions(data.getStringList("settings.blacklist.region"));
         pouch.setBlacklistedWorlds(data.getStringList("settings.blacklist.world"));
 
@@ -35,6 +37,7 @@ public class PouchMapper {
 
     @SuppressWarnings("deprecation")
     public static ItemStack itemstackMap(FileConfiguration data) {
+        if (data == null) return null;
         Material pouchMaterial = Material.matchMaterial(data.getString("item.material", "PAPER"));
 
         if (pouchMaterial == null)
