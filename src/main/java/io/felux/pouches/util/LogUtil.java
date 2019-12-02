@@ -9,12 +9,13 @@ public class LogUtil {
 
     public static void getBanner() {
         sendTranslated("&b ");
-        sendTranslated("&b    ___");
-        sendTranslated("&b   / _ \\");
-        sendTranslated("&b  / ___/ " + " &7" + PLUGIN.getDescription().getName() + " v" + PLUGIN.getDescription().getVersion() + " (" + Common.getVersion() + ")");
-        sendTranslated("&b /_/     " + " &7Running on Bukkit - " + PLUGIN.getServer().getName());
+        sendTranslated("&b    ____    __         ");
+        sendTranslated("&b   / __/__ / /_ ____ __");
+        sendTranslated("&b  / _// -_) / // /\\ \\ /");
+        sendTranslated("&b /_/  \\__/_/\\_,_//_\\_\\ ");
         sendTranslated("&b ");
-        sendTranslated("[" + PLUGIN.getDescription().getPrefix() + "] Created by Felux.io Development.");
+        sendTranslated("&b &7A Product of &bFelux.io Development&7.");
+        sendTranslated("&b &7Running on " + Common.getVersion() + " as Bukkit - " + PLUGIN.getServer().getName());
         sendTranslated("&b ");
     }
 
@@ -26,7 +27,7 @@ public class LogUtil {
         Bukkit.getConsoleSender().sendMessage("[" + PLUGIN.getDescription().getPrefix() + "] Loading " + Common.translate(message) + "..");
     }
 
-    private static void debug(String message) {
+    public static void debug(String message) {
         if (PLUGIN.getConfig().getBoolean("debug", false))
             PLUGIN.getLogger().info("[D] " + message);
     }
