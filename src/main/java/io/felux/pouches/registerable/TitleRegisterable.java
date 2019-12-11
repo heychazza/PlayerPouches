@@ -38,6 +38,9 @@ public class TitleRegisterable {
             case "v1_14_R1":
                 title = new Title_v1_14_R1();
                 break;
+            case "v1_15_R1":
+                title = new Title_v1_15_R1();
+                break;
             default:
                 Pouches.getInstance().getLogger().warning("Invalid version (" + version + ") detected!");
                 Bukkit.getServer().getPluginManager().disablePlugin(Pouches.getInstance());

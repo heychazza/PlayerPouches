@@ -1,7 +1,7 @@
 package io.felux.pouches.util;
 
-import de.tr7zw.itemnbtapi.NBTItem;
 import io.felux.pouches.api.Pouch;
+import io.felux.pouches.nbt.NBT;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -60,9 +60,12 @@ public class PouchMapper {
         itemStack.setItemMeta(itemMeta);
         itemStack.setDurability((short) data.getInt("item.data", 0));
 
-        NBTItem nbt = new NBTItem(itemStack);
-        nbt.setString("pouches-id", voucherId);
+        NBT nbt = NBT.get(itemStack);
+        if (nbt != null) {
+            nbt.setString("pouches-id", voucherId);
+            return nbt.apply(itemStack);
+        }
 
-        return nbt.getItem();
+        return null;
     }
 }

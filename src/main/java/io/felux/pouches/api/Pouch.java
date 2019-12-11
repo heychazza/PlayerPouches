@@ -1,8 +1,8 @@
 package io.felux.pouches.api;
 
 import com.google.common.collect.Maps;
-import de.tr7zw.itemnbtapi.NBTItem;
 import io.felux.pouches.Pouches;
+import io.felux.pouches.nbt.NBT;
 import io.felux.pouches.registerable.TitleRegisterable;
 import io.felux.pouches.util.Common;
 import org.bukkit.Bukkit;
@@ -133,8 +133,8 @@ public class Pouch {
 
     public static Pouch getPouch(ItemStack itemStack) {
         if (itemStack == null || itemStack.getType() == Material.AIR) return null;
-        NBTItem nbt = new NBTItem(itemStack);
-        if (nbt.hasKey("pouches-id") && Pouches.getInstance().getPouchManager().getPouch(nbt.getString("pouches-id")) != null)
+        NBT nbt = NBT.get(itemStack);
+        if (nbt != null && nbt.hasNBTData() && nbt.hasKey("pouches-id") && Pouches.getInstance().getPouchManager().getPouch(nbt.getString("pouches-id")) != null)
             return Pouches.getInstance().getPouchManager().getPouch(nbt.getString("pouches-id"));
 
         return null;

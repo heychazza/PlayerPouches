@@ -6,7 +6,7 @@
 
     <groupId>io.felux</groupId>
     <artifactId>pouches</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
 
     <properties>
         <plugin>Pouches</plugin>
@@ -126,6 +126,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
+                    <outputDirectory>server/plugins</outputDirectory>
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
                     </archive>
@@ -137,14 +138,6 @@
                 <configuration>
                     <source>8</source>
                     <target>8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.1</version>
-                <configuration>
-                    <outputDirectory>server/plugins</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
@@ -167,11 +160,6 @@
             <groupId>org.codemc.worldguardwrapper</groupId>
             <artifactId>worldguardwrapper</artifactId>
             <version>1.1.6-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.Chazza.Item-NBT-API</groupId>
-            <artifactId>item-nbt-api</artifactId>
-            <version>3d06992b2a</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
@@ -228,6 +216,12 @@
             <version>1.14.4-R0.1-SNAPSHOT</version>
             <scope>system</scope>
             <systemPath>${spigotJars}/spigot-1.14.4-R0.1-SNAPSHOT-latest.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.15-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
