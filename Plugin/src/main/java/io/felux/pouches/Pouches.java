@@ -3,6 +3,9 @@ package io.felux.pouches;
 import io.felux.pouches.hook.WorldGuardHook;
 import io.felux.pouches.manager.FileManager;
 import io.felux.pouches.manager.PouchManager;
+import io.felux.pouches.maven.LibraryLoader;
+import io.felux.pouches.maven.MavenLibrary;
+import io.felux.pouches.maven.Repository;
 import io.felux.pouches.registerable.CommandRegisterable;
 import io.felux.pouches.registerable.ListenerRegisterable;
 import io.felux.pouches.registerable.TitleRegisterable;
@@ -13,6 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.stream.Collectors;
 
+@MavenLibrary(groupId = "com.github.CodeMC.WorldGuardWrapper", artifactId = "worldguardwrapper", version = "master-5e50edd862-1", repo = @Repository(url = "https://jitpack.io"))
 public class Pouches extends JavaPlugin {
     private static Pouches instance;
     private FileManager fileManager;
@@ -35,6 +39,7 @@ public class Pouches extends JavaPlugin {
         LogUtil.getBanner();
 
         LogUtil.loading("libraries");
+        LibraryLoader.loadAll(Pouches.class);
         TitleRegisterable.register();
 
         LogUtil.loading("pouches");
