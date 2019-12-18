@@ -13,6 +13,12 @@
     <artifactId>pouches-plugin</artifactId>
     <name>Pouches Plugin</name>
 
+    <properties>
+        <plugin>Pouches</plugin>
+        <package>${groupId}.pouches.${plugin}</package>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <repositories>
         <repository>
             <id>spigot-repo</id>
@@ -112,16 +118,15 @@
     </dependencies>
 
     <build>
+        <finalName>${plugin}-v${project.version}</finalName>
         <resources>
             <resource>
+                <!-- (your resources folder location) -->
                 <directory>src/main/resources</directory>
+                <!-- this is the important part, it's what replaces, filters, all placeholders in the resources folder (such as ${project.version} in plugin.yml) -->
                 <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>..</directory>
                 <includes>
-                    <include>LICENSE.txt</include>
-                    <include>THIRD-PARTY.txt</include>
+                    <include>*.yml</include>
                 </includes>
             </resource>
         </resources>
@@ -186,6 +191,7 @@
                     <artifactSet>
                         <includes>
                             <include>${project.groupId}:*</include>
+                            <include>org.codemc.worldguardwrapper:*</include>
                         </includes>
                     </artifactSet>
                     <filters>

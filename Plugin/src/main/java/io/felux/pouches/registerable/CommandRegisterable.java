@@ -12,7 +12,7 @@ public class CommandRegisterable {
     public static void register() {
         commandManager = new CommandManager(Pouches.getInstance());
 
-        PluginCommand pluginCommand = POUCHES.getCommand("io/felux/pouches/nms/v1_8_R3");
+        PluginCommand pluginCommand = POUCHES.getCommand(POUCHES.getDescription().getName().toLowerCase());
         if (pluginCommand == null) {
             throw new RuntimeException("The /pouches command isn't found, contact the developer!");
         }
