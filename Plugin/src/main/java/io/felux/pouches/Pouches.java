@@ -22,7 +22,6 @@ public class Pouches extends JavaPlugin {
     private FileManager fileManager;
     private PouchManager pouchManager;
 
-
     public static Pouches getInstance() {
         return instance;
     }
