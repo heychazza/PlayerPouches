@@ -1,0 +1,12 @@
+name: ${plugin}
+version: ${project.version}
+main: ${package}
+author: "Felux"
+softdepend: ["WorldGuard"]
+prefix: "P"
+website: https://felux.io/
+
+commands:
+  pouches:
+    aliases: ["pouch"]
+    description: "The main plugin command."
