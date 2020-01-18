@@ -1,10 +1,10 @@
 name: ${plugin}
 version: ${project.version}
 main: ${package}
-author: "Felux"
+author: "CodeItForYou"
 softdepend: ["WorldGuard"]
 prefix: "P"
-website: https://felux.io/
+website: https://codeitforyou.com/
 
 commands:
   pouches:

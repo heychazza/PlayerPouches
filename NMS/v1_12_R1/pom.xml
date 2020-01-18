@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>pouches-parent</artifactId>
-        <groupId>io.felux</groupId>
-        <version>1.0.2-SNAPSHOT</version>
+        <groupId>com.codeitforyou</groupId>
+        <version>1.0.4</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -22,7 +22,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.felux</groupId>
+            <groupId>com.codeitforyou</groupId>
             <artifactId>pouches-nms-interfaces</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>

@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.felux</groupId>
+        <groupId>com.codeitforyou</groupId>
         <artifactId>pouches-parent</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.0.4</version>
     </parent>
 
     <artifactId>pouches-plugin</artifactId>

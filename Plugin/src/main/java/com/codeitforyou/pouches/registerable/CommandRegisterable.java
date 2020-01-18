@@ -1,0 +1,29 @@
+package com.codeitforyou.pouches.registerable;
+
+import com.codeitforyou.pouches.Pouches;
+import com.codeitforyou.pouches.command.util.CommandExecutor;
+import com.codeitforyou.pouches.command.util.CommandManager;
+import org.bukkit.command.PluginCommand;
+
+public class CommandRegisterable {
+    private static final Pouches POUCHES = Pouches.getInstance();
+    private static CommandManager commandManager;
+
+    public static void register() {
+        commandManager = new CommandManager(Pouches.getInstance());
+
+        PluginCommand pluginCommand = POUCHES.getCommand(POUCHES.getDescription().getName().toLowerCase());
+        if (pluginCommand == null) {
+            throw new RuntimeException("The /pouches command isn't found, contact the developer!");
+        }
+
+        pluginCommand.setExecutor(new CommandExecutor(POUCHES));
+        if (pluginCommand.getPlugin() != POUCHES) {
+            POUCHES.getLogger().warning("/pouches command is being handled by plugin other than " + POUCHES.getDescription().getName() + ". You must use /pouches:pouches instead.");
+        }
+    }
+
+    public static CommandManager getCommandManager() {
+        return commandManager;
+    }
+}

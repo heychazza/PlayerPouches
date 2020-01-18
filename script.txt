@@ -1,38 +1,42 @@
 classpath     "%classpathLibs%"
               "%compileArtifactPath%"
               "%pluginArtifactPath%";
-open          "server/plugins/%project.build.finalName%.%project.packaging%";
+open          "server/plugins/%project.build.finalName%.%project.packaging%"
+                ;
 
 stringEncryptionExclude
-              io.felux.pouches.Pouches;
+              com.codeitforyou.pouches.Pouches;
 
 trimExclude   *.* @*.EventHandler *(*);
 
-exclude       io.felux.pouches. and
-              io.felux.pouches.Pouches and
+exclude       com.codeitforyou.pouches. and
+              com.codeitforyou.pouches.Pouches and
 
-              io.felux.pouches.libs. and
-              io.felux.pouches.libs.* and
-              io.felux.pouches.libs.* * and
-              io.felux.pouches.libs.* * (*) and
+              *.* @*.EventHandler *(*) and
+              *.* @*.Command *(*) and
 
-              io.felux.pouches.api. and
-              io.felux.pouches.api.* and
-              io.felux.pouches.api.* * and
-              io.felux.pouches.api.* * (*)
+              com.codeitforyou.pouches.api. and
+              com.codeitforyou.pouches.api.* and
+              com.codeitforyou.pouches.api.* * and
+              com.codeitforyou.pouches.api.* * (*)
               ;
 
-obfuscate   obfuscateFlow=extraAggressive
-            encryptStringLiterals=enhanced
-            mixedCaseClassNames=true
-            aggressiveMethodRenaming=true
-            hideFieldNames=true
-            uniqueClassNames=true
-            randomize=true
-            localVariables=obfuscate
-            lineNumbers=scramble
-            autoReflectionHandling=normal
-            lineNumbers=scramble
-            newNamesPrefix="$$Skid$$";
+obfuscate    changeLogFileOut="ChangeLog.txt"
+             keepInnerClassInfo=ifNameNotObfuscated // should be true to allow use of OpenAPI inner classes
+             keepGenericsInfo=true
+             aggressiveMethodRenaming=true
+             obfuscateFlow=aggressive
+             exceptionObfuscation=heavy
+             encryptStringLiterals=enhanced
+             legalIdentifiers=true
+             lineNumbers=keep
+             hideFieldNames=false
+             hideStaticMethodNames=false
+             randomize=true
+             methodParameters=keepVisibleIfNotObfuscated
+             localVariables=keepMethodParametersIfNotObfuscated
+             methodParameterChanges=flowObfuscate
+             obfuscateReferences=normal
+             ;
 
 saveAll     "server/plugins/%project.build.finalName%.%project.packaging%";
