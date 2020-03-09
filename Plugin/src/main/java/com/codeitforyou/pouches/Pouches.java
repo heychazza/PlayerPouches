@@ -1,5 +1,6 @@
 package com.codeitforyou.pouches;
 
+import com.codeitforyou.lib.api.actions.ActionManager;
 import com.codeitforyou.pouches.hook.WorldGuardHook;
 import com.codeitforyou.pouches.manager.FileManager;
 import com.codeitforyou.pouches.manager.PouchManager;
@@ -20,6 +21,7 @@ public class Pouches extends JavaPlugin {
     private static Pouches instance;
     private FileManager fileManager;
     private PouchManager pouchManager;
+    private ActionManager actionManager;
 
     public static Pouches getInstance() {
         return instance;
@@ -29,10 +31,16 @@ public class Pouches extends JavaPlugin {
         return pouchManager;
     }
 
+    public ActionManager getActionManager() {
+        return actionManager;
+    }
+
     @Override
     public void onEnable() {
         instance = this;
-        long start = System.currentTimeMillis();
+        actionManager = new ActionManager(this);
+        actionManager.addDefaults();
+
         saveDefaultConfig();
 
         LibraryLoader.loadAll(Pouches.class);
@@ -41,9 +49,7 @@ public class Pouches extends JavaPlugin {
         loadPouches();
 
         CommandRegisterable.register();
-
         ListenerRegisterable.register();
-
         WorldGuardHook.register();
     }
 

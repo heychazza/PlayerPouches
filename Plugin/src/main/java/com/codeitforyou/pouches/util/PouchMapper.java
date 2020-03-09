@@ -1,13 +1,17 @@
 package com.codeitforyou.pouches.util;
 
+import com.codeitforyou.lib.api.general.StringUtil;
+import com.codeitforyou.lib.api.nbt.NBT;
+import com.codeitforyou.lib.api.xseries.XMaterial;
 import com.codeitforyou.pouches.api.Pouch;
-import com.codeitforyou.pouches.nbt.NBT;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
+
+import java.util.Collections;
 
 public class PouchMapper {
     public static Pouch voucherMap(FileConfiguration data) {
@@ -38,18 +42,19 @@ public class PouchMapper {
     @SuppressWarnings("deprecation")
     public static ItemStack itemstackMap(FileConfiguration data) {
         if (data == null) return null;
-        Material pouchMaterial = Material.matchMaterial(data.getString("item.material", "PAPER"));
+        XMaterial pouchMaterial = XMaterial.matchXMaterial(data.getString("item.material", "PAPER")).orElse(null);
 
         if (pouchMaterial == null)
             throw new RuntimeException("Material " + data.getString("item.material", "PAPER") + " is invalid!");
-        ItemStack itemStack = new ItemStack(pouchMaterial);
+
+        ItemStack itemStack = new ItemStack(pouchMaterial.parseMaterial());
         ItemMeta itemMeta = itemStack.getItemMeta();
 
         String voucherId = data.getString("id", "unknown");
 
         if (itemMeta != null) {
-            itemMeta.setDisplayName(Common.translate(data.getString("item.name", "&b" + voucherId + " Pouch")));
-            itemMeta.setLore(Common.translate(data.getStringList("item.lore")));
+            itemMeta.setDisplayName(StringUtil.translate(data.getString("item.name", "&b" + voucherId + " Pouch")));
+            itemMeta.setLore(StringUtil.translate(data.getStringList("item.lore")));
 
             if (data.getBoolean("item.glow", false)) {
                 itemMeta.addEnchant(Enchantment.WATER_WORKER, 1, false);
@@ -59,6 +64,14 @@ public class PouchMapper {
 
         itemStack.setItemMeta(itemMeta);
         itemStack.setDurability((short) data.getInt("item.data", 0));
+
+        if (data.getString("item.texture") != null && !data.getString("item.texture").isEmpty()) {
+            if (XMaterial.PLAYER_HEAD.isOneOf(Collections.singletonList(data.getString("item.material", "PAPER")))) {
+                SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
+                SkullUtils.getSkullByValue(skullMeta, data.getString("item.texture", ""));
+                itemStack.setItemMeta(skullMeta);
+            }
+        }
 
         NBT nbt = NBT.get(itemStack);
         if (nbt != null) {

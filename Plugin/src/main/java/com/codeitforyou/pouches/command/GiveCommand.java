@@ -1,8 +1,8 @@
 package com.codeitforyou.pouches.command;
 
+import com.codeitforyou.lib.api.command.Command;
 import com.codeitforyou.pouches.Pouches;
 import com.codeitforyou.pouches.api.Pouch;
-import com.codeitforyou.pouches.command.util.Command;
 import com.codeitforyou.pouches.util.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

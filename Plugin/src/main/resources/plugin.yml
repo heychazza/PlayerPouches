@@ -1,12 +1,6 @@
-name: ${plugin}
+name: CIFY${plugin}
 version: ${project.version}
 main: ${package}
 author: "CodeItForYou"
 softdepend: ["WorldGuard"]
-prefix: "P"
 website: https://codeitforyou.com/
-
-commands:
-  pouches:
-    aliases: ["pouch"]
-    description: "The main plugin command."

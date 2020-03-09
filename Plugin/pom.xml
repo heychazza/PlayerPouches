@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.codeitforyou</groupId>
         <artifactId>pouches-parent</artifactId>
-        <version>1.0.4</version>
+        <version>1.0.6</version>
     </parent>
 
     <artifactId>pouches-plugin</artifactId>
@@ -35,6 +35,12 @@
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>com.codeitforyou</groupId>
+            <artifactId>lib</artifactId>
+            <version>1.3.3-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>pouches-nms-interfaces</artifactId>
@@ -119,7 +125,7 @@
     </dependencies>
 
     <build>
-        <finalName>${plugin}-v${project.version}</finalName>
+        <finalName>CIFY${plugin}</finalName>
         <resources>
             <resource>
                 <!-- (your resources folder location) -->
@@ -138,7 +144,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
-                    <outputDirectory>../server/plugins</outputDirectory>
+                    <outputDirectory>D:/Documents/Minecraft/TestServer/plugins</outputDirectory>
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
                     </archive>
@@ -162,7 +168,7 @@
                         <artifactId>ZKM</artifactId>
                         <version>10.0.0</version>
                         <scope>system</scope>
-                        <systemPath>D:/Documents/Development/ZKM/ZKM.jar</systemPath>
+                        <systemPath>D:/Documents/Development/Obfuscation/ZKM/ZKM.jar</systemPath>
                     </dependency>
                 </dependencies>
                 <executions>
@@ -194,6 +200,12 @@
                             <include>${project.groupId}:*</include>
                         </includes>
                     </artifactSet>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.codeitforyou.lib</pattern>
+                            <shadedPattern>${project.groupId}.pouches.lib</shadedPattern>
+                        </relocation>
+                    </relocations>
                     <filters>
                         <filter>
                             <artifact>*:*</artifact>

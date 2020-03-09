@@ -1,11 +1,10 @@
 package com.codeitforyou.pouches.api;
 
+import com.codeitforyou.lib.api.general.StringUtil;
+import com.codeitforyou.lib.api.nbt.NBT;
 import com.codeitforyou.pouches.Pouches;
-import com.codeitforyou.pouches.nbt.NBT;
 import com.codeitforyou.pouches.registerable.TitleRegisterable;
-import com.codeitforyou.pouches.util.Common;
 import com.google.common.collect.Maps;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -233,12 +232,12 @@ public class Pouch {
                 JSONObject titleObj = new JSONObject();
                 titleObj.put("text", stringBuilder.toString());
 
-                TitleRegisterable.getTitle().sendTitle(player, Common.translate(titleObj.toJSONString()));
+                TitleRegisterable.getTitle().sendTitle(player, StringUtil.translate(titleObj.toJSONString()));
 
                 JSONObject subTitleObj = new JSONObject();
                 subTitleObj.put("text", getUnrevealedSubtitle());
 
-                TitleRegisterable.getTitle().sendSubtitle(player, Common.translate(subTitleObj.toJSONString()));
+                TitleRegisterable.getTitle().sendSubtitle(player, StringUtil.translate(subTitleObj.toJSONString()));
 
                 if (number == -1) {
                     new BukkitRunnable() {
@@ -255,11 +254,11 @@ public class Pouch {
 
                             JSONObject titleObj = new JSONObject();
                             titleObj.put("text", (isEven ? getRevealedFirstFormat() : getRevealedSecondFormat()) + getRevealedTitle().replace("%amount%", requireFormat() ? formattedNumber : numberStr));
-                            TitleRegisterable.getTitle().sendTitle(player, Common.translate(titleObj.toJSONString()));
+                            TitleRegisterable.getTitle().sendTitle(player, StringUtil.translate(titleObj.toJSONString()));
 
                             JSONObject subTitleObj = new JSONObject();
                             subTitleObj.put("text", getRevealedSubtitle());
-                            TitleRegisterable.getTitle().sendSubtitle(player, Common.translate(subTitleObj.toJSONString()));
+                            TitleRegisterable.getTitle().sendSubtitle(player, StringUtil.translate(subTitleObj.toJSONString()));
 
                             blink--;
                         }
@@ -272,32 +271,7 @@ public class Pouch {
 
     private void runRewards(Player p, Long amount) {
         List<String> strings = getRewards();
-        for (int i = 0, stringsSize = strings.size(); i < stringsSize; i++) {
-            String msg = strings.get(i);
-            boolean singleAction = !msg.contains(" ");
-            String actionPrefix = singleAction ? msg : msg.split(" ", 2)[0].toUpperCase();
-            String actionData = singleAction ? "" : msg.split(" ", 2)[1];
-            actionData = Common.translate(actionData);
-            actionData = actionData.replace("%player%", p.getName());
-            actionData = actionData.replace("%amount%", amount + "");
-            actionData = Common.parse(p, actionData);
-
-            switch (actionPrefix) {
-                case "[CONSOLE]":
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), actionData);
-                    break;
-                case "[PLAYER]":
-                    p.performCommand(actionData);
-                    break;
-                case "[BROADCAST]":
-                    Bukkit.broadcastMessage(actionData);
-                    break;
-                case "[MESSAGE]":
-                    p.sendMessage(actionData);
-                    break;
-                case "[CHAT]":
-                    p.chat(actionData);
-            }
-        }
+        strings.replaceAll(item -> item.replace("%amount%", amount + ""));
+        POUCHES.getActionManager().runActions(p, strings);
     }
 }
