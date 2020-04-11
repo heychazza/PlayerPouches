@@ -25,10 +25,10 @@ public class CommandRegisterable {
         commandManager.setMainCommand(MainCommand.class);
         CommandManager.Locale locale = commandManager.getLocale();
 
-        locale.setUnknownCommand(Lang.ERROR_NO_PERMISSION_COMMAND.asString(Lang.PREFIX.asString()));
+        locale.setUnknownCommand(Lang.ERROR_INVALID_COMMAND.asString(Lang.PREFIX.asString()));
         locale.setPlayerOnly(Lang.ERROR_PLAYER_ONLY.asString(Lang.PREFIX.asString()));
         locale.setUsage(Lang.COMMAND_USAGE.asString(Lang.PREFIX.asString(), "{usage}"));
-        locale.setNoPermission(Lang.ERROR_INVALID_COMMAND.asString(Lang.PREFIX.asString()));
+        locale.setNoPermission(Lang.ERROR_NO_PERMISSION_COMMAND.asString(Lang.PREFIX.asString()));
 
         Arrays.asList("pouch", "pouches").forEach(commandManager::addAlias);
         commandManager.register();
