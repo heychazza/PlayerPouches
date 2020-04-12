@@ -113,7 +113,7 @@ public class Pouch {
     }
 
     public List<String> getRewards() {
-        return rewards;
+        return new ArrayList<>(rewards);
     }
 
     public void setRewards(List<String> rewards) {
@@ -207,9 +207,10 @@ public class Pouch {
     }
 
     public void sendTitle(Player player, Long amount) {
+        String formattedNumber = NumberFormat.getIntegerInstance().format(amount);
+        String numberStr = String.valueOf(amount);
+
         new BukkitRunnable() {
-            String formattedNumber = NumberFormat.getIntegerInstance().format(amount);
-            String numberStr = String.valueOf(amount);
 
             int numberWidth = numberStr.toCharArray().length;
             int number = numberWidth;
@@ -271,7 +272,7 @@ public class Pouch {
 
     private void runRewards(Player p, Long amount) {
         List<String> strings = getRewards();
-        strings.replaceAll(item -> item.replace("%amount%", amount + ""));
+        strings.replaceAll(item -> item.replace("%amount%", String.valueOf(amount)));
         POUCHES.getActionManager().runActions(p, strings);
     }
 }
