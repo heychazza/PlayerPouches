@@ -83,6 +83,9 @@ public class InteractListener implements Listener {
             else player.getInventory().getItemInOffHand().setAmount(pouchItem.getAmount() - 1);
         }
 
+        if (player.getItemInHand().getAmount() > 1)
+            player.getItemInHand().setAmount(player.getItemInHand().getAmount() - 1);
+
         Pouch.getCurrentPouches().add(player.getUniqueId());
         pouch.sendTitle(player, amount);
     }
